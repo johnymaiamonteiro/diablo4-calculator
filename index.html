@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XP Calculator - Diablo Edition</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #111;
+            color: #ccc;
+        }
+
+        h1 {
+            color: #c0392b;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ccc;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #555;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: #ccc;
+        }
+
+        button {
+            padding: 15px;
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 80%;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #a93226;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>XP Calculator for the Tears of Blood Glyph - Diablo 4</h1>
+    
+    <label for="currentLv">Current level of your Tears of Blood glyph:</label>
+    <input type="number" id="currentLv" min="1" required>
+    
+    <label for="xpPerRound">Amount of XP you gain per round:</label>
+    <input type="number" id="xpPerRound" min="1" required>
+    
+    <label for="desiredLv">Desired level:</label>
+    <input type="number" id="desiredLv" min="2" max="200" required>
+    
+    <button onclick="calculateXP()">Calculate</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateXP() {
+            var currentLv = parseInt(document.getElementById('currentLv').value);
+            let xpPerRound = parseInt(document.getElementById('xpPerRound').value);
+            var desiredLv = parseInt(document.getElementById('desiredLv').value);
+
+            let totalXP = 0;
+            let xpLV = 0;
+            var rounds = 0;
+
+            while (currentLv < desiredLv) {
+                xpLV += xpPerRound;
+                totalXP += xpPerRound;
+                
+                if (xpLV >= xpTable[currentLv]) {
+                    xpLV -= xpTable[currentLv];
+                    currentLv++;
+                }
+                
+                rounds++;
+            }
+			
+			
+            // Check if the language is set to Portuguese, then display the result in Portuguese
+            var userLanguage = navigator.language || navigator.userLanguage;
+            if (userLanguage.toLowerCase() === 'pt-br') {
+                var result = "Você precisa completar " + rounds + " rodadas para alcançar o nível " + desiredLv + " e ganhará um total de " + totalXP + " de XP.";
+            }
+			else{
+				var result = "You need to complete " + rounds + " rounds to reach level " + desiredLv + " and you will gain a total of " + totalXP + " XP.";
+			}
+
+            
+
+            document.getElementById('result').innerHTML = result;
+        }
+
+        // XP table for each level
+         var xpTable = {
+    1: 2000,
+    2: 4600,
+    3: 7700,
+    4: 11200,
+    5: 15000,
+    6: 19100,
+    7: 23500,
+    8: 28500,
+    9: 32900,
+    10: 37900,
+    11: 43100,
+    12: 48500,
+    13: 54100,
+    14: 59800,
+    15: 65700,
+    16: 71800,
+    17: 78000,
+    18: 84400,
+    19: 90900,
+    20: 97500,
+    21: 104300,
+    22: 111200,
+    23: 118200,
+    24: 125300,
+    25: 132500,
+    26: 139800,
+    27: 147200,
+    28: 154700,
+    29: 162300,
+    30: 170000,
+    31: 177800,
+    32: 185700,
+    33: 193700,
+    34: 201800,
+    35: 210000,
+    36: 218300,
+    37: 226700,
+    38: 235200,
+    39: 243800,
+    40: 252500,
+    41: 262700,
+    42: 271600,
+    43: 280600,
+    44: 289700,
+    45: 298900,
+    46: 308200,
+    47: 317600,
+    48: 327100,
+    49: 336700,
+    50: 346400,
+    51: 356200,
+    52: 366100,
+    53: 376100,
+    54: 386200,
+    55: 396400,
+    56: 406700,
+    57: 417100,
+    58: 427600,
+    59: 438200,
+    60: 448900,
+    61: 459700,
+    62: 470600,
+    63: 481600,
+    64: 492700,
+    65: 503900,
+    66: 515200,
+    67: 526600,
+    68: 538100,
+    69: 549700,
+    70: 561400,
+    71: 573200,
+    72: 585100,
+    73: 597100,
+    74: 609200,
+    75: 607700,
+    76: 620000,
+    77: 632400,
+    78: 644900,
+    79: 657500,
+    80: 670200,
+    81: 683000,
+    82: 695900,
+    83: 708900,
+    84: 722000,
+    85: 735200,
+    86: 748500,
+    87: 761900,
+    88: 775400,
+    89: 789000,
+    90: 802700,
+    91: 816500,
+    92: 830400,
+    93: 844400,
+    94: 858500,
+    95: 872700,
+    96: 887000,
+    97: 901400,
+    98: 915900,
+    99: 930500,
+    100: 945200,
+    101: 960000,
+    102: 974900,
+    103: 989900,
+    104: 1005000,
+    105: 1020200,
+    106: 1035500,
+    107: 1050900,
+    108: 1066400,
+    109: 1082000,
+    110: 1097700,
+    111: 1113500,
+    112: 1139400,
+    113: 1155400,
+    114: 1171500,
+    115: 1187700,
+    116: 1204000,
+    117: 1220400,
+    118: 1236900,
+    119: 1253500,
+    120: 1270200,
+    121: 1287000,
+    122: 1303900,
+    123: 1320900,
+    124: 1338000,
+    125: 1355200,
+    126: 1372500,
+    127: 1389900,
+    128: 1407400,
+    129: 1425000,
+    130: 1442700,
+    131: 1460500,
+    132: 1478400,
+    133: 1496400,
+    134: 1514500,
+    135: 1532700,
+    136: 1551000,
+    137: 1569400,
+    138: 1587900,
+    139: 1606500,
+    140: 1625200,
+    141: 1644000,
+    142: 1662900,
+    143: 1681900,
+    144: 1701000,
+    145: 1720200,
+    146: 1739500,
+    147: 1758900,
+    148: 1778400,
+    149: 1798000,
+    150: 1817700,
+    151: 1837500,
+    152: 1857400,
+    153: 1877400,
+    154: 1897500,
+    155: 1917700,
+    156: 1938000,
+    157: 1958400,
+    158: 1978900,
+    159: 1999500,
+    160: 2020200,
+    161: 2041000,
+    162: 2061900,
+    163: 2082900,
+    164: 2104000,
+    165: 2125200,
+    166: 2146500,
+    167: 2167900,
+    168: 2189400,
+    169: 2211000,
+    170: 2232700,
+    171: 2254500,
+    172: 2276400,
+    173: 2298400,
+    174: 2320500,
+    175: 2342700,
+    176: 2365000,
+    177: 2387400,
+    178: 2409900,
+    179: 2432500,
+    180: 2455200,
+    181: 2478000,
+    182: 2500900,
+    183: 2523900,
+    184: 2547000,
+    185: 2570200,
+    186: 2593500,
+    187: 2616900,
+    188: 2640400,
+    189: 2664000,
+    190: 2687700,
+    191: 2711500,
+    192: 2735400,
+    193: 2759400,
+    194: 2783500,
+    195: 2807700,
+    196: 2832000,
+    197: 2856400,
+    198: 2880900,
+    199: 2905500,
+    200: 2930200
+};
+
+        // Check browser language and switch to Portuguese if in Brazil
+        var userLanguage = navigator.language || navigator.userLanguage;
+        if (userLanguage.toLowerCase() === 'pt-br') {
+            switchToPortuguese();
+        }
+
+        function switchToPortuguese() {
+            document.title = "Calculadora de XP - Edição Diablo";
+            document.querySelector('h1').innerText = "Calculadora de XP para o Glifo Tears of Blood - Diablo 4";
+            document.querySelectorAll('label')[0].innerText = "Level atual do seu glifo Tears of Blood:";
+            document.querySelectorAll('label')[1].innerText = "Quantidade de XP que você ganha por rodada:";
+            document.querySelectorAll('label')[2].innerText = "Level desejado:";
+            document.querySelector('button').innerText = "Calcular";
+        }
+    </script>
+</body>
+</html>
